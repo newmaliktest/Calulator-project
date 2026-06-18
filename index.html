@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Advanced Wrong Calculator</title>
+
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #111, #333);
+      font-family: Arial, sans-serif;
+    }
+
+    .calculator {
+      width: 360px;
+      background: #1e1e1e;
+      padding: 20px;
+      border-radius: 20px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    }
+
+    h2 {
+      color: white;
+      text-align: center;
+      margin-bottom: 15px;
+    }
+
+    .display {
+      width: 100%;
+      height: 70px;
+      background: #000;
+      color: #00ff88;
+      font-size: 28px;
+      text-align: right;
+      padding: 15px;
+      border: none;
+      border-radius: 12px;
+      box-sizing: border-box;
+      margin-bottom: 15px;
+    }
+
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    button {
+      height: 60px;
+      border: none;
+      border-radius: 12px;
+      font-size: 20px;
+      cursor: pointer;
+      background: #333;
+      color: white;
+      transition: 0.2s;
+    }
+
+    button:hover {
+      background: #555;
+    }
+
+    .operator {
+      background: #ff9500;
+    }
+
+    .operator:hover {
+      background: #ffaa33;
+    }
+
+    .equal {
+      background: #00b894;
+      grid-column: span 2;
+    }
+
+    .clear {
+      background: #d63031;
+    }
+
+    .small {
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="calculator">
+    <h2>Advanced Calculator</h2>
+    <input type="text" id="display" class="display" disabled />
+
+    <div class="buttons">
+      <button class="clear" onclick="clearDisplay()">C</button>
+      <button onclick="deleteLast()">DEL</button>
+      <button onclick="appendValue('%')">%</button>
+      <button class="operator" onclick="appendValue('/')">÷</button>
+
+      <button onclick="appendValue('7')">7</button>
+      <button onclick="appendValue('8')">8</button>
+      <button onclick="appendValue('9')">9</button>
+      <button class="operator" onclick="appendValue('*')">×</button>
+
+      <button onclick="appendValue('4')">4</button>
+      <button onclick="appendValue('5')">5</button>
+      <button onclick="appendValue('6')">6</button>
+      <button class="operator" onclick="appendValue('-')">−</button>
+
+      <button onclick="appendValue('1')">1</button>
+      <button onclick="appendValue('2')">2</button>
+      <button onclick="appendValue('3')">3</button>
+      <button class="operator" onclick="appendValue('+')">+</button>
+
+      <button onclick="appendValue('0')">0</button>
+      <button onclick="appendValue('.')">.</button>
+      <button class="equal" onclick="calculateWrong()">=</button>
+
+      <button class="small" onclick="square()">x²</button>
+      <button class="small" onclick="squareRoot()">√</button>
+      <button class="small" onclick="appendValue('(')">(</button>
+      <button class="small" onclick="appendValue(')')">)</button>
+    </div>
+  </div>
+
+  <script>
+    const display = document.getElementById("display");
+
+    function appendValue(value) {
+      display.value += value;
+    }
+
+    function clearDisplay() {
+      display.value = "";
+    }
+
+    function deleteLast() {
+      display.value = display.value.slice(0, -1);
+    }
+
+    function calculateWrong() {
+      try {
+        let correctAnswer = eval(display.value);
+
+        // This makes the calculator give a wrong answer
+        let wrongAnswer = correctAnswer + Math.floor(Math.random() * 10) + 1;
+
+        display.value = wrongAnswer;
+      } catch {
+        display.value = "Error";
+      }
+    }
+
+    function square() {
+      try {
+        let correctAnswer = Math.pow(eval(display.value), 2);
+
+        // Wrong square answer
+        display.value = correctAnswer + 5;
+      } catch {
+        display.value = "Error";
+      }
+    }
+
+    function squareRoot() {
+      try {
+        let correctAnswer = Math.sqrt(eval(display.value));
+
+        // Wrong square root answer
+        display.value = correctAnswer + 2;
+      } catch {
+        display.value = "Error";
+      }
+    }
+  </script>
+
+</body>
+</html>
